@@ -1,6 +1,6 @@
 package com.example.domain.server
 
-import com.example.domain.game.GameClient
+import com.example.domain.game.client.GameClient
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
 import kotlinx.coroutines.Dispatchers

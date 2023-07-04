@@ -4,7 +4,6 @@ import com.example.domain.packets.request.RequestPacket
 import com.example.domain.packets.PacketHeader
 import com.example.domain.packets.PacketUtils
 import java.nio.ByteBuffer
-import java.nio.ByteOrder
 
 fun ByteBuffer.printBytes() {
     array().printBytes()
@@ -94,7 +93,7 @@ fun ByteBuffer.encryptPacket() {
     put(PacketHeader.HASH_KEY, (checkSumEnc - checkSumDec).toByte())
 }
 
-fun ByteBuffer.getPacketHeader(): PacketHeader {
+private fun ByteBuffer.getPacketHeader(): PacketHeader {
     position(0)
 
     val size = getShort().toUShort()
@@ -107,11 +106,13 @@ fun ByteBuffer.getPacketHeader(): PacketHeader {
     return PacketHeader(size, key, hash, code, index, timestamp)
 }
 
-fun ByteBuffer.getPacketContent(): ByteArray {
+private fun ByteBuffer.getPacketContent(): ByteArray {
     return array().slice(12 until size()).toByteArray()
 }
 
 fun ByteBuffer.getRequestPacket(): RequestPacket {
+    decryptPacket()
+
     return RequestPacket(
         header = getPacketHeader(), content = getPacketContent()
     )

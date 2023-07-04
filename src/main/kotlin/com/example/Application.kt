@@ -1,7 +1,7 @@
 package com.example
 
-import com.example.domain.game.GameClient
-import com.example.domain.game.GameClientStatus
+import com.example.domain.game.client.GameClient
+import com.example.domain.game.client.GameClientStatus
 import com.example.domain.server.GameServer
 import com.example.domain.server.WebServer
 import kotlinx.coroutines.runBlocking
