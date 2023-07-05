@@ -1,6 +1,7 @@
 package com.example.domain.packets.request
 
 import com.example.domain.packets.response.BannerMessageResponse
+import com.example.domain.packets.response.LoginResponse
 import com.example.domain.packets.response.ResponsePacket
 import com.example.extensions.cleanNullChars
 import com.example.extensions.containsOnlyAlphanumeric
@@ -23,6 +24,8 @@ class LoginRequest(buffer: ByteBuffer, sendResponse: (response: ResponsePacket) 
         } else {
             val bannerMessageResponse = BannerMessageResponse("User: $user Senha: $password")
             sendResponse(bannerMessageResponse)
+            val loginResponse = LoginResponse(30002, user)
+            sendResponse(loginResponse)
         }
     }
 

@@ -56,6 +56,9 @@ class GameClient(
 
     fun sendResponse(response: ResponsePacket) {
         val buffer = response.getBuffer()
+
+        println(buffer.getPacketHeader().toString())
+        buffer.printBytesHex()
         buffer.encryptPacket()
 
         scope.launch {

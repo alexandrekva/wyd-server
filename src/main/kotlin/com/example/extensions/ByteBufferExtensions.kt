@@ -93,7 +93,7 @@ fun ByteBuffer.encryptPacket() {
     put(PacketHeader.HASH_KEY, (checkSumEnc - checkSumDec).toByte())
 }
 
-private fun ByteBuffer.getPacketHeader(): PacketHeader {
+fun ByteBuffer.getPacketHeader(): PacketHeader {
     position(0)
 
     val size = getShort().toUShort()

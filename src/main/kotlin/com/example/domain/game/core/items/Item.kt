@@ -25,7 +25,7 @@ class Item {
         itemEFArray = arrayList
     }
 
-    fun getBuffer() {
+    fun getBuffer(): ByteBuffer {
         val buffer = PacketUtils.buildByteBuffer(SIZE)
 
         buffer.putShort(id)
@@ -33,10 +33,12 @@ class Item {
         itemEFArray.forEachIndexed { index, itemEF ->
             if (index < 3) buffer.put(itemEF.getBuffer().array())
         }
+
+        return buffer
     }
 
     companion object {
-        private const val SIZE = 8
+        const val SIZE = 8
         private val ID_BYTES = 0..1
         private val ITEM_EF_BYTES = 2..7
     }
