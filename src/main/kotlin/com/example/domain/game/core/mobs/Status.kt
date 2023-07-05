@@ -4,27 +4,27 @@ import com.example.domain.packets.PacketUtils
 import java.nio.ByteBuffer
 
 class Status {
-    var level: Int = 0
+    var level: Int
 
-    var defense: Int = 0
-    var attack: Int = 0
+    var defense: Int
+    var attack: Int
 
-    var merchant: Byte = 0
-    var speed: Byte = 0
-    var direction: Byte = 0
-    var chaosRate: Byte = 0
+    var merchant: Byte
+    var speed: Byte
+    var direction: Byte
+    var chaosRate: Byte
 
-    var maxHP: UInt = 0u
-    var maxMP: UInt = 0u
-    var currentHP: UInt = 0u
-    var currentMP: UInt = 0u
+    var maxHP: UInt
+    var maxMP: UInt
+    var currentHP: UInt
+    var currentMP: UInt
 
-    var str: Short = 0
-    var int: Short = 0
-    var dex: Short = 0
-    var con: Short = 0
+    var str: Short
+    var int: Short
+    var dex: Short
+    var con: Short
 
-    var master: ShortArray = shortArrayOf(0, 0, 0, 0)
+    var master: ShortArray
 
     constructor(buffer: ByteBuffer) {
         level = buffer.getInt(LEVEL_BYTES.first)
@@ -56,6 +56,30 @@ class Status {
         master = masterList.toShortArray()
     }
 
+    constructor() {
+        level = 0
+
+        defense = 0
+        attack = 0
+
+        merchant = 0
+        speed = 0
+        direction = 0
+        chaosRate = 0
+
+        maxHP = 0u
+        maxMP = 0u
+        currentHP = 0u
+        currentMP = 0u
+
+        str = 0
+        int = 0
+        dex = 0
+        con = 0
+
+        master = shortArrayOf(0, 0, 0, 0)
+    }
+
     fun getBuffer(): ByteBuffer {
         val buffer = PacketUtils.buildByteBuffer(SIZE)
 
@@ -79,8 +103,8 @@ class Status {
         buffer.putShort(dex)
         buffer.putShort(con)
 
-        for (s in master) {
-            buffer.putShort(s)
+        master.forEachIndexed { index, sh ->
+            if (index < 4) buffer.putShort(sh)
         }
 
         return buffer

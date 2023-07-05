@@ -4,12 +4,22 @@ import com.example.domain.packets.PacketUtils
 import java.nio.ByteBuffer
 
 class ItemEF {
-    var type: Byte = 0
-    var value: Byte = 0
+    var type: Byte
+    var value: Byte
 
     constructor(buffer: ByteBuffer) {
         type = buffer.get(TYPE_BYTE)
         value = buffer.get(VALUE_BYTE)
+    }
+
+    constructor(typeByte: Byte, valueByte: Byte) {
+        type = typeByte
+        value = valueByte
+    }
+
+    constructor() {
+        type = 0
+        value = 0
     }
 
     fun getBuffer(): ByteBuffer {
